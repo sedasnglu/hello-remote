@@ -9,7 +9,7 @@ pipeline {
        stage('Docker Push') {
            steps {
                sh 'docker login https://kutuphane.jandarma.gov.tr -u hello -p Ankara06*'
-               sh 'docker push https://kutuphane.jandarma.gov.tr/hello-jenkins/hello:v1'
+               sh 'docker push kutuphane.jandarma.gov.tr/hello-jenkins/hello:v1'
             }
         }
     }
