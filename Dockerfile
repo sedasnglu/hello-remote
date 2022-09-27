@@ -6,6 +6,6 @@ COPY hello.go .
 
 RUN go build -o hello hello.go
 
-EXPOSE 8080
+EXPOSE 9002
 
 CMD ["./hello"]
