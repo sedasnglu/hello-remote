@@ -1,20 +1,31 @@
 pipeline {
-    agent any
-    stages {
-        stage('Docker Build') {
-            steps {
-                sh 'echo docker build'
-                sh 'docker build -t kutuphane.jandarma.gov.tr/hello-jenkins/hello:v1 .'
-            }
-        }
-        stage('Docker Push') {
-            steps {
-                sh 'echo docker login'
-                sh 'docker login https://kutuphane.jandarma.gov.tr -u hello -p Ankara06*'
-                sh 'echo docker push'
-                sh 'docker push https://kutuphane.jandarma.gov.tr/hello-jenkins/hello:v1'
-  
-          }
-        }
+    agent {
+      label 'docker'  # separate agent (launched as JAR on host machine) to avoid running docker inside docker
     }
-}
+    environment {
+      imageId = 'hello-jenkins/jenkins:1.$BUILD_NUMBER'
+      docker_registry = 'kutuphane.jandarma.gov.tr'
+      docker_creds = credentials('docker_creds_USR=hello docker_creds_PSW=Ankara06*')
+    }
+    stages {
+      stage('Docker build') {
+        steps {
+          sh "docker build --no-cache --force-rm -t ${imageId} ."
+        }
+      }
+      stage('Docker push') {
+        steps {
+          sh'''
+            docker login $docker_registry --username $docker_creds_USR --password $docker_creds_PSW
+            docker push $imageId
+            docker logout
+          '''
+        }
+      }
+      stage('Clean') {
+        steps{
+          sh "docker rmi ${imageId}"
+        }
+      }
+    }
+  }
