@@ -1,8 +1,8 @@
 FROM golang:1.16-alpine
 
-WORKDIR /hello
+WORKDIR .
 
-COPY /hello/hello.go .
+COPY hello.go .
 
 RUN go build -o hello hello.go
 
