@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-      label 'docker'  # separate agent (launched as JAR on host machine) to avoid running docker inside docker
-    }
+    agent any
     environment {
       imageId = 'hello-jenkins/jenkins:1.$BUILD_NUMBER'
       docker_registry = 'kutuphane.jandarma.gov.tr'
