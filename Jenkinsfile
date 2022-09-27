@@ -1,27 +1,16 @@
-pipeline {  
-    environment {
-      registry = "kutuphane.jandarma.gov.tr/hello-jenkins"
-      registryCredential = 'dockerregistry'
-    }  
-    agent any  
-      
+pipeline {
+    agent any
     stages {
-      stage('Building image') {
-        steps{
-          script {
-            docker.build registry + ":$BUILD_NUMBER"
-          }
-        }
-      }
-      stage('Deploy Image') {
-        steps{
-          script {
-            docker.withRegistry( '', registryCredential ) {
-              dockerImage.push()
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t kutuphane.jandarma.gov.tr/hello-jenkins/hello:v1 .'
             }
-          }
-       }
-   }
-}
-
+        }
+       stage('Docker Push') {
+           steps {
+               sh 'docker login https://kutuphane.jandarma.gov.tr -u hello -p Ankara06*'
+               sh 'docker push https://kutuphane.jandarma.gov.tr/hello-jenkins/hello:v1'
+            }
+        }
+    }
 }
