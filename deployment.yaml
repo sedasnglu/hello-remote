@@ -1,1 +1,20 @@
-test
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-go
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: hello-go
+  template:
+    metadata:
+      labels:
+        name: hello-go
+    spec:
+      containers:
+      - name: hello
+        image: 192.168.56.12:5000/hello-jenkins/hello:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 9002
