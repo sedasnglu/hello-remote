@@ -15,7 +15,7 @@ pipeline {
        stage('Deploy Kubernetes') {
            steps {
                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'kubernetes', contextName: 'kubernetes-admin', credentialsId: 'jenkins', namespace: 'default', serverUrl: 'https://192.168.56.10:6443']]) {
-               kubectl apply -f deployment.yaml
+               kubectl get pods
                }
             }
         }
