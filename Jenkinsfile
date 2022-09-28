@@ -12,5 +12,10 @@ pipeline {
                sh 'docker push 192.168.56.12:5000/hello-jenkins/hello:v1'
             }
         }
+       stage('Deploy Kubernetes') {
+           steps {
+               sh 'kubectl apply -f deployment.yaml'
+            }
+        }
     }
 }
