@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Docker Build') {
             steps {
-                sh 'docker build -t private-registry/hello-jenkins/hello:v1 .'
+                sh 'docker build -t 192.168.56.12:5000/hello-jenkins/hello:v1 .'
             }
         }
        stage('Docker Push') {
