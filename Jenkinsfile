@@ -14,7 +14,7 @@ pipeline {
         }
        stage('Deploy Kubernetes') {
            steps {
-               sh '/usr/local/bin/kubectl apply -f deployment.yaml'
+               sh 'kubectl create namespace test'
             }
         }
     }
