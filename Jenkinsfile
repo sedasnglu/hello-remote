@@ -18,7 +18,7 @@ pipeline {
                                    namespace: 'default', serverUrl: 'https://192.168.56.10:6443']]) {
                 sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.23.7/bin/linux/amd64/kubectl"'  
                 sh 'chmod u+x ./kubectl'
-                sh 'kubectl create deployment test --image=nginx'
+                sh './kubectl create deployment test --image=nginx'
                }
            }
         }
