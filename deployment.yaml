@@ -26,7 +26,7 @@ kind: Service
 metadata:
   name: hello-go
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
   - name: http
     port: 80
