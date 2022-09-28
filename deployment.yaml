@@ -29,7 +29,7 @@ spec:
   type: NodePort
   ports:
   - name: http
-    port: 80
+    port: 9002
     targetPort: 9002
   selector:
     name: hello-go
