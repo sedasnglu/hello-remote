@@ -14,7 +14,16 @@ pipeline {
         }
        stage('Deploy Kubernetes') {
            steps {
-               sh 'kubectl create namespace test'
+               sshagent(['k8s']) {
+            sh "scp -o StrictHostKeyChecking=no deployment.yaml vagrant@192.168.56.10:/home/vagrant"
+            script {
+                try{
+                    sh "ssh vagrant@192.168.56.10 kubectl create -f ."
+                }catch(error){
+                    sh "ssh vagrant@192.168.56.10 kubectl create -f ."
+            }
+}
+        }
             }
         }
     }
