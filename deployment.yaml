@@ -18,8 +18,6 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 9009
-      imagePullSecrets:
-      - name: pullsecret
 ---
 apiVersion: v1
 kind: Service
