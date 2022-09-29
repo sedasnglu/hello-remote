@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: hello
-        image: 192.168.56.12:5000/hello-jenkins/hello:v1.${env.BUILD_NUMBER}
+        image: 192.168.56.12:5000/hello-jenkins/hello:v1.${env.BUILD_ID}
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080
