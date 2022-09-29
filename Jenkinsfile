@@ -3,7 +3,7 @@ pipeline {
     stages {
        stage('Docker Build') {
            steps {
-               sh 'docker build -t 192.168.56.12:5000/hello-jenkins/hello:v1."${env.BUILD_NUMER}" .'
+               sh 'docker build -t 192.168.56.12:5000/hello-jenkins/hello:v1.${BUILD_ID} .'
             }
        }
        stage('Docker Push') {
