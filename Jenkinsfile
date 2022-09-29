@@ -9,7 +9,7 @@ pipeline {
        stage('Docker Push') {
            steps {
                sh 'docker login 192.168.56.12:5000 -u seda -p seda'
-               sh 'docker push 192.168.56.12:5000/hello-jenkins/hello:v1.${env.BUILD_ID}'
+               sh 'docker push 192.168.56.12:5000/hello-jenkins/hello:v1.${BUILD_ID}'
             }
        }
        stage('Deploy Kubernetes') {
