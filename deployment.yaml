@@ -17,7 +17,7 @@ spec:
         image: 192.168.56.12:5000/hello-jenkins/hello:v1.${BUILD_ID}
         imagePullPolicy: IfNotPresent
         ports:
-          - containerPort: 9002
+          - containerPort: 9009
       imagePullSecrets:
       - name: pullsecret
 ---
@@ -29,7 +29,7 @@ spec:
   type: NodePort
   ports:
   - name: http
-    port: 9002
-    targetPort: 9002
+    port: 9009
+    targetPort: 9009
   selector:
     name: hello-go
