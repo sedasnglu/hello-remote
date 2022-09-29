@@ -19,6 +19,7 @@ pipeline {
                 sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.23.7/bin/linux/amd64/kubectl"'  
                 sh 'chmod u+x ./kubectl'
                 sh './kubectl apply -f deployment.yaml'
+                sh './kubectl set image deployments/hello-go hello=192.168.56.12:5000/hello-jenkins/hello:v1.${BUILD_ID}'
                }
            }
         }
