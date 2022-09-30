@@ -44,8 +44,8 @@
   - name: Run  Docker Registry
     command: "docker run -d -p 192.168.56.12:5000:5000 --name registry --restart=always registry:2"
     register: start_registry
-  - name: Copy daemon.json
-#    connection: local
+
+  - name: Copy daemon.json for insecure registry
     become: yes
     copy:
       src: daemon.json

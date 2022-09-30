@@ -21,6 +21,7 @@
     - include_role:
         name: project
         tasks_from: 5_install_kubernetes_packages.yml
+
 - name: Kubernetes Master Config
   hosts: master
   become: true
@@ -28,6 +29,7 @@
     - include_role:
         name: project
         tasks_from: 6_kubernetes_master_config.yml
+
 - name: Kubernetes Worker Join
   hosts: nodes
   become: true
