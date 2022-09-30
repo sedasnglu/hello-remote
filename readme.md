@@ -24,20 +24,20 @@ Necessary Tools
 
    Create any user from GUI
 
-   Install Kubernetes Plugins from manage plugins section.
+   Install Kubernetes Plugins from "manage plugins" section.
 
-   Add Kubernetes Credentials from manage and clouds section.
+   Add Kubernetes Credentials from "manage and clouds" section.
    ```
    2.2. Docker-Registry Installation
     
    ```python 
-   Add Docker Registry and Github Credentials from manage credentials section.
+   Add Docker Registry and Github Credentials from "manage credentials" section.
    ```  
    2.3. Kubernetes Cluster Installation with 1 Master and 1 Worker
 
    ```python 
    Kubernetes Master Node: 192.168.56.10
-   Kubernetes worker Node: 192.168.56.11 
+   Kubernetes Worker Node: 192.168.56.11 
    ``` 
 3. Create Jenkins Pipeline Project with Jenkinsfile
 
@@ -53,7 +53,9 @@ Necessary Tools
    3.4. Deploy Kubernetes 
 
 4. Access Your Application
-
+   
    ```python
-   192.168.56.11:<Nodeport>
-   ``` 
+   kubectl get svc --> Nodeport
+
+   http://192.168.56.11:<Nodeport>
+   ```
