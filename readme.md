@@ -4,15 +4,16 @@ Tools
 - Ansible
 - Vagrant
 
-1. Virtualbox Installation
+1. Virtualbox Installation with Ansible Role.
 
     ansible-playbook vbox.yml -v
 
-2. Create 3 VM and Installation K8S-Jenkins-Docker Registy
-
+2. Create 3 VM and Installation K8S-Jenkins-Docker Registy with Vagrant and Ansible.
+   
+   ```python 
    vagrant up
-
-   Vagrantfile has a playbook.yaml. All operations are performed with this ansible role. **Operations steps are 2.1 , 2.2. and 2.3 .;**
+    ```
+   *** Vagrantfile has a playbook.yaml. All operations are performed with this ansible role. **Operations steps are 2.1 , 2.2. and 2.3 .;**
 
    2.1. Jenkins Installation
 
@@ -34,7 +35,7 @@ Tools
 
 3. Create Jenkins Pipeline Project with Jenkinsfile
 
-   **Jenkinsfile performs following steps.**
+   *** Jenkinsfile performs following steps.
    
    3.1. Create an application image with Dockerfile
 
