@@ -14,24 +14,21 @@ Necessary Tools
    ```python 
    vagrant up
 
-   Vagrantfile use an ansible playbook.yaml to performed following operations. 
+   Vagrantfile use an ansible playbook.yaml to perform following operations. 
    ```
-
    2.1. Jenkins Installation
 
    ```python 
    You can access Jenkins project with https://192.168.56.12:8080
 
-   Create any user from GUI
+   Install Kubernetes Plugins from "manage plugins" section in Jenkins GUI.
 
-   Install Kubernetes Plugins from "manage plugins" section in Jenkins application.
-
-   Add Kubernetes Credentials from "manage and clouds" section in Jenkins application.
+   Add Kubernetes Credentials from "manage and clouds" section in Jenkins GUI.
    ```
    2.2. Docker-Registry Installation
     
    ```python 
-   Add Docker Registry and Github Credentials from "manage credentials" section in Jenkins application.
+   Add Docker Registry and Github Credentials from "manage credentials" section in Jenkins GUI.
    ```  
    2.3. Kubernetes Cluster Installation with 1 Master and 1 Worker
 
