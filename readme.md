@@ -1,4 +1,4 @@
-# With this project, Kubernetes Cluster created using the Infrastructure as a Code and a sample Go Web application was deployed to the Kubernetes Cluster via Jenkins.
+With this project, Kubernetes Cluster created using the Infrastructure as a Code and a sample Go Web application was deployed to the Kubernetes Cluster via Jenkins.
 
 Tools
 - Ansible
@@ -12,13 +12,27 @@ Tools
 
    vagrant up
 
-3. Kubernetes Cluster Installation with 1 Master and 1 Worker
+   (Vagrantfile has a playbook.yaml. All operations are performed with this ansible role.) Operations steps;
 
-4. Jenkins Installation
+   2.1. Jenkins Installation
 
-5. Docker-Registry Installation
+   ```python 
+   You can  access Jenkins project with https://192.168.56.12:8080 .
 
-6. Jenkins Pipeline Project
+   Create any user from GUI
+
+   Install Kubernetes Plugins
+
+   Add Kubernetes Credentials from manage and clouds section.
+   ```
+   2.2. Docker-Registry Installation
+    
+   ```python 
+   Add Docker Registry and Github Credentials from manage credentials section.
+   ```  
+   2.3. Kubernetes Cluster Installation with 1 Master and 1 Worker
+
+3. Create Jenkins Pipeline Project with Jenkinsfile
    
    6.1. Create an application image with Dockerfile
 
