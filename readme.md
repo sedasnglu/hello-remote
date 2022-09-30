@@ -1,4 +1,4 @@
-With this project, Kubernetes Cluster created using the Infrastructure as a Code and a sample Go Web application was deployed to the Kubernetes Cluster via Jenkins.
+With this project, a Kubernetes Cluster created using the Infrastructure as a Code and a sample Go Web application was deployed to the Kubernetes Cluster via Jenkins.
 
 Tools
 - Ansible
@@ -6,8 +6,9 @@ Tools
 
 1. Virtualbox Installation with Ansible Role.
 
-    ansible-playbook vbox.yml -v
-
+   ```python 
+   ansible-playbook vbox.yml -v
+   ```
 2. Create 3 VM and Installation K8S-Jenkins-Docker Registy with Vagrant and Ansible.
    
    ```python 
