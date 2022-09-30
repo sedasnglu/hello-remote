@@ -12,7 +12,7 @@ Tools
 
    vagrant up
 
-   (Vagrantfile has a playbook.yaml. All operations are performed with this ansible role.) Operations steps;
+   Vagrantfile has a playbook.yaml. All operations are performed with this ansible role. **Operations steps are 2.1 , 2.2. and 2.3 .;**
 
    2.1. Jenkins Installation
 
@@ -33,12 +33,14 @@ Tools
    2.3. Kubernetes Cluster Installation with 1 Master and 1 Worker
 
 3. Create Jenkins Pipeline Project with Jenkinsfile
+
+   **Jenkinsfile performs following steps.**
    
-   6.1. Create an application image with Dockerfile
+   3.1. Create an application image with Dockerfile
 
-   6.2. Build application
+   3.2. Build application
 
-   6.3. Push the docker image to docker registry
+   3.3. Push the docker image to docker registry
 
-   6.4. Deploy Kubernetes 
+   3.4. Deploy Kubernetes 
 
