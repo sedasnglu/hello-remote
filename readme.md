@@ -24,14 +24,14 @@ Necessary Tools
 
    Create any user from GUI
 
-   Install Kubernetes Plugins from "manage plugins" section.
+   Install Kubernetes Plugins from "manage plugins" section in Jenkins application.
 
-   Add Kubernetes Credentials from "manage and clouds" section.
+   Add Kubernetes Credentials from "manage and clouds" section in Jenkins application.
    ```
    2.2. Docker-Registry Installation
     
    ```python 
-   Add Docker Registry and Github Credentials from "manage credentials" section.
+   Add Docker Registry and Github Credentials from "manage credentials" section in Jenkins application.
    ```  
    2.3. Kubernetes Cluster Installation with 1 Master and 1 Worker
 
