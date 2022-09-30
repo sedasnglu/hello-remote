@@ -7,35 +7,47 @@ Necessary Tools
 1. Virtualbox Installation with Ansible Role.
 
    ```python 
+   cd ansible 
+
    ansible-playbook vbox.yml -v
    ```
 2. Create 3 VM and Installation K8S-Jenkins-Docker Registy with Vagrant and Ansible.
    
-   ```python 
-   vagrant up
+   ```python
+   cd ansible
 
-   Vagrantfile use an ansible playbook.yaml to perform following operations. 
+   sudo vagrant up
+
+   ***Vagrantfile use an ansible playbook.yaml to perform following operations. 
    ```
-   2.1. Jenkins Installation
-
-   ```python 
-   You can access Jenkins project with https://192.168.56.12:8080
-
-   Install Kubernetes Plugins from "manage plugins" section in Jenkins GUI.
-
-   Add Kubernetes Credentials from "manage and clouds" section in Jenkins GUI.
-   ```
-   2.2. Docker-Registry Installation
+   2.1. Docker-Registry Installation
     
    ```python 
-   Add Docker Registry and Github Credentials from "manage credentials" section in Jenkins GUI.
+   Docker Registry runs as a docker container on http://192.168.56.12:5000 .
    ```  
-   2.3. Kubernetes Cluster Installation with 1 Master and 1 Worker
+   2.2. Kubernetes Cluster Installation with 1 Master and 1 Worker
 
    ```python 
    Kubernetes Master Node: 192.168.56.10
    Kubernetes Worker Node: 192.168.56.11 
    ``` 
+   2.3. Jenkins Installation
+
+   ```python 
+   You can access Jenkins project with http://192.168.56.12:8080
+
+   Login and Install plugins.
+
+   Install Kubernetes Plugins from "manage plugins" section in Jenkins GUI.
+
+   Add Kubernetes Credentials from "manage and clouds" section in Jenkins GUI.
+
+   Add Docker Registry and Github Credentials from "manage credentials" section in Jenkins GUI.
+
+   Add Multibranch Pipeline item in Jenkins GUI and configure Branch Sources. 
+
+   CI/CD pipeline automatically starts.
+   ```
 3. Create Jenkins Pipeline Project with Jenkinsfile
 
    ```python
