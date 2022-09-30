@@ -1,0 +1,71 @@
+---   
+    - name: initialize the cluster
+      command: kubeadm init --apiserver-advertise-address=192.168.56.10 --apiserver-cert-extra-sans="192.168.56.10" --pod-network-cidr=20.96.0.0/12
+      register: kubernetes_init
+      args:
+        chdir: $HOME
+        creates: cluster_initialized.txt
+
+    - name: Debug
+      debug:
+        msg: "{{ kubernetes_init.stdout }}"
+
+    - name: create .kube directory
+      file:
+        path: $HOME/.kube
+        state: directory
+        mode: 0755
+
+#    - name: copies admin.conf to user's kube config
+#      copy:
+#        src: /etc/kubernetes/admin.conf
+#        dest: /root/.kube/config
+#        remote_src: yes
+#        owner: vagrant
+    - name: Setup kubeconfig for vagrant user
+      command: "{{ item }}"
+      with_items:
+       - mkdir -p /home/vagrant/.kube
+       - cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
+       - chown vagrant:vagrant /home/vagrant/.kube/config
+
+#    - name: Sleep for 300 seconds and continue with play
+#      ansible.builtin.wait_for:
+#        timeout: 40
+
+#    - name: Install pod network
+#      shell: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+    - name: Ensure Calico network file
+      become: yes
+      get_url:
+        url: https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
+        dest: /var/tmp/calico.yaml
+        mode: 0444
+
+    - name: Ensure Calico RBAC file
+      become: yes
+      get_url:
+        url: https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
+        dest: /var/tmp/rbac-kdd.yaml
+        mode: 0444        
+    - name: Get the token for joining the worker nodes
+      become: yes
+      shell: kubeadm token create  --print-join-command
+      register: kubernetes_join_command
+    - name: Ensure Calico CIDR
+      become: yes
+      replace:
+        path: /var/tmp/calico.yaml
+        regexp: '192.168.0.0\/16'
+        replace: '172.43.0.0/16'
+        backup: yes 
+    - name: Install pod network
+      shell: - name: Install pod network
+#      shell: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+    - name: Debug
+      debug:
+        msg: "{{ kubernetes_join_command.stdout }}"
+
+    - name: Copy join command to local file.
+      become: yes
+      local_action: copy content="{{ kubernetes_join_command.stdout_lines[0] }}" dest="/tmp/kubernetes_join_command" mode=0777

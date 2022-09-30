@@ -1,0 +1,67 @@
+---   
+    - name: initialize the cluster
+      command: kubeadm init --apiserver-advertise-address=192.168.56.10 --apiserver-cert-extra-sans="192.168.56.10" --pod-network-cidr=172.43.0.0/16
+      register: kubernetes_init
+      args:
+        chdir: $HOME
+        creates: cluster_initialized.txt
+
+    - name: Debug
+      debug:
+        msg: "{{ kubernetes_init.stdout }}"
+
+    - name: create .kube directory
+      file:
+        path: $HOME/.kube
+        state: directory
+        mode: 0755
+
+    - name: Setup kubeconfig for vagrant user
+      command: "{{ item }}"
+      with_items:
+       - mkdir -p /home/vagrant/.kube
+       - cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
+       - chown vagrant:vagrant /home/vagrant/.kube/config
+
+    - name: Ensure Calico network file
+      become: yes
+      get_url:
+        url: https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/manifests/calico.yaml
+        dest: /home/vagrant/calico.yaml
+        mode: 0444
+
+    - name: Ensure Calico CIDR
+      become: yes
+      replace:
+        path: /home/vagrant/calico.yaml
+        regexp: '192.168.0.0\/16'
+        replace: '172.43.0.0/16'
+        backup: yes
+
+    - name: Apply
+      shell: |
+        kubectl apply -f /home/vagrant/calico.yaml
+      environment:
+        KUBECONFIG: /home/vagrant/.kube/config
+            
+    - name: Get the token for joining the worker nodes
+      become: yes
+      shell: kubeadm token create  --print-join-command
+      register: kubernetes_join_command
+    
+    - name: Debug
+      debug:
+        msg: "{{ kubernetes_join_command.stdout }}"
+
+    - name: Copy join command to local file.
+      become: yes
+      local_action: copy content="{{ kubernetes_join_command.stdout_lines[0] }}" dest="/tmp/kubernetes_join_command" mode=0777
+    
+    - name: Wait
+      ansible.builtin.wait_for:
+        timeout: 120
+
+    - name: Ingress controller kuruluyor
+      become: yes
+      become_user: vagrant 
+      shell: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.2.1/deploy/static/provider/cloud/deploy.yaml

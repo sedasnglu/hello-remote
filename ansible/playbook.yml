@@ -1,0 +1,37 @@
+- name: Install Jenkins
+  hosts: server
+  become: true
+  tasks:
+    - include_role:
+        name: project
+        tasks_from: 3_install_jenkins.yml
+
+- name: Install Docker Registry
+  hosts: server
+  become: true
+  tasks:
+    - include_role:
+        name: project
+        tasks_from: 4_install_docker_registry.yml
+
+- name: Kubernetes Pack. Install
+  hosts: master,nodes
+  become: true
+  tasks:
+    - include_role:
+        name: project
+        tasks_from: 5_install_kubernetes_packages.yml
+- name: Kubernetes Master Config
+  hosts: master
+  become: true
+  tasks:
+    - include_role:
+        name: project
+        tasks_from: 6_kubernetes_master_config.yml
+- name: Kubernetes Worker Join
+  hosts: nodes
+  become: true
+  tasks:
+    - include_role:
+        name: project
+        tasks_from: 7_worker_join.yml

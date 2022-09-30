@@ -1,0 +1,8 @@
+- name: Install Virtualbox
+  hosts: localhost
+  become: true
+  tasks:
+    - include_role:
+        name: project
+        tasks_from: 1_install_virtualbox.yml
+

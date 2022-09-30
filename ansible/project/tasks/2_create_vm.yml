@@ -1,0 +1,4 @@
+---
+    - name: Vagrant up
+      become: true
+      command: sudo vagrant up

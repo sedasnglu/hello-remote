@@ -1,0 +1,8 @@
+---
+- name: Install Virtualbox
+  apt:
+    pkg:
+      - virtualbox
+      - virtualbox-qt
+      - virtualbox-dkms
+    state: latest

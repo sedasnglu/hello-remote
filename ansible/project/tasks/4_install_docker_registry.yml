@@ -1,0 +1,55 @@
+---
+  - name: Install docker packages
+    apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: yes
+    with_items:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+
+  - name: Add Dockers GPG key
+    remote_user: ubuntu
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Repository
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+      state: present
+      update_cache: yes
+
+  - name: Update apt packages
+    remote_user: ubuntu
+    apt:
+      update_cache: yes
+
+  - name: Install docker
+    remote_user: ubuntu
+    apt:
+      name: docker-ce
+      state: present
+      update_cache: yes
+ 
+  - name: Add jenkins user docker grouop
+    become: yes
+    ansible.builtin.user:
+      name: jenkins
+      groups: docker
+      append: yes
+
+  - name: Run  Docker Registry
+    command: "docker run -d -p 192.168.56.12:5000:5000 --name registry --restart=always registry:2"
+    register: start_registry
+  - name: Copy daemon.json
+#    connection: local
+    become: yes
+    copy:
+      src: daemon.json
+      dest: "/etc/docker/daemon.json"
+      
+  - name: Restart
+    command: sudo systemctl restart docker
