@@ -34,19 +34,19 @@ Necessary Tools
    2.3. Jenkins Installation
 
    ```python 
-   You can access Jenkins project with http://192.168.56.12:8080
+   - You can access Jenkins project with http://192.168.56.12:8080
 
-   Login and Install plugins.
+   - Login and Install plugins.
 
-   Install Kubernetes Plugins from "manage plugins" section in Jenkins GUI.
+   - Install Kubernetes Plugins from "manage plugins" section in Jenkins GUI.
 
-   Add Kubernetes Credentials from "manage and clouds" section in Jenkins GUI.
+   - Add Kubernetes Credentials from "manage and clouds" section in Jenkins GUI.
 
-   Add Docker Registry and Github Credentials from "manage credentials" section in Jenkins GUI.
+   - Add Docker Registry and Github Credentials from "manage credentials" section in Jenkins GUI.
 
-   Add Multibranch Pipeline item in Jenkins GUI and configure Branch Sources. 
+   - Add Multibranch Pipeline item in Jenkins GUI and configure Branch Sources. 
 
-   CI/CD pipeline automatically starts.
+   - CI/CD pipeline automatically starts.
    ```
 3. Create Jenkins Pipeline Project with Jenkinsfile
 
